@@ -6,6 +6,24 @@
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+## 👀 Quick Start for Recruiters
+
+| If you want to see... | SQL Module |
+|---|---|
+| Supplier reliability & late delivery analysis | [`sql/lead_time_analysis.sql`](sql/lead_time_analysis.sql) |
+| Supplier risk scoring & scorecard | [`sql/supplier_performance.sql`](sql/supplier_performance.sql) |
+| Demand forecasting & reorder points | [`sql/demand_forecasting.sql`](sql/demand_forecasting.sql) |
+| Stockout risk dashboard & ABC classification | [`sql/stockout_risk.sql`](sql/stockout_risk.sql) |
+
+**Sample output from `stockout_risk.sql`:**
+
+| sku | product_name | days_of_stock | lead_time_days | risk_flag | abc_class |
+|---|---|---|---|---|---|
+| SKU-001 | AA Batteries 4pk | 3 | 7 | CRITICAL | A |
+| SKU-047 | USB-C Cable 2m | 6 | 7 | WARNING | A |
+| SKU-112 | Picture Frame 8x10 | 94 | 14 | OVERSTOCK | C |
+| SKU-203 | Extension Lead 4m | 12 | 7 | WATCH | B |
+
 ---
 
 ## 🎯 Business Problem
