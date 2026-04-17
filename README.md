@@ -145,3 +145,21 @@ Built by **Manoj Kumar Kavuri** — Graduate Market & Operations Analyst
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/manojkumarkavuri/) [![GitHub](https://img.shields.io/badge/GitHub-Portfolio-181717?style=flat-square&logo=github)](https://github.com/manojkumarkavuri20-a11y)
 
 > Open to Operations Analyst, Business Analyst, and Supply Chain Analyst roles across the UK.
+
+
+## Getting Started
+
+To run these queries locally you'll need PostgreSQL 13+ installed.
+
+```bash
+# Create the database
+psql -U postgres -c "CREATE DATABASE supply_chain_analytics;"
+
+# Import sample data
+psql -U postgres -d supply_chain_analytics -f data/sample_data.csv
+
+# Run your first query
+psql -U postgres -d supply_chain_analytics -f sql/stockout_risk.sql
+```
+
+The `data/` folder contains `sample_data.csv` and `data_dictionary.md` with full schema documentation. Start with `stockout_risk.sql` to see the risk dashboard, then work backwards through the other modules.
