@@ -1,9 +1,5 @@
--- ============================================================
--- lead_time_analysis.sql
--- Supply Chain Analytics
--- Purpose: Benchmark supplier lead times and identify outliers
--- Author:  Manoj Kumar Kavuri
--- ============================================================
+-- Supplier lead time benchmarking - flags fast/average/slow suppliers by category
+-- Supply Chain Analytics | Author: Manoj Kumar Kavuri | PostgreSQL
 
 -- Step 1: Calculate lead time statistics per supplier
 WITH supplier_lead_times AS (
@@ -54,7 +50,4 @@ FROM supplier_lead_times slt
 JOIN category_avg ca ON slt.category = ca.category
 ORDER BY slt.category, slt.avg_lead_time ASC;
 
--- ============================================================
--- Use case: Identify slow suppliers for renegotiation
--- Filter: WHERE lead_time_rating = 'SLOW'
--- ============================================================
+-- To find suppliers due for renegotiation: WHERE lead_time_rating = 'SLOW'
