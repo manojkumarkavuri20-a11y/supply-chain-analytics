@@ -1,10 +1,5 @@
--- ============================================================
--- Stockout Risk & Inventory Health Analysis
--- Project: Supply Chain Analytics
--- Author:  Manoj Kumar Kavuri
--- Description: Identifies products at risk of stockout,
---              ABC classification, and replenishment urgency
--- ============================================================
+-- Stockout risk and inventory health: days-of-stock alerts, ABC classification, overstock
+-- Supply Chain Analytics | Author: Manoj Kumar Kavuri | PostgreSQL
 
 -- 1. CURRENT STOCKOUT RISK ASSESSMENT
 -- Calculates days of stock remaining vs reorder lead time
