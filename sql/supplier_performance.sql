@@ -1,10 +1,6 @@
--- ============================================================
--- Supplier Performance Analysis
--- Project: Supply Chain Analytics
--- Author:  Manoj Kumar Kavuri
--- Description: Evaluates supplier reliability, lead time
---              consistency, fill rates and quality metrics
--- ============================================================
+-- Supplier scorecards: on-time delivery, fill rate, defect rate, risk tiers, cost variance
+-- Supply Chain Analytics | Author: Manoj Kumar Kavuri | PostgreSQL
+
 
 -- 1. SUPPLIER SCORECARD
 -- Overall performance ranking across all key dimensions
