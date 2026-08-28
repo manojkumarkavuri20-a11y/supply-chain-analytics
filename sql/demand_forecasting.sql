@@ -1,10 +1,6 @@
--- ============================================================
--- Demand Forecasting & Planning Analytics
--- Project: Supply Chain Analytics
--- Author:  Manoj Kumar Kavuri
--- Description: Moving averages, seasonality detection,
---              reorder point calculation and safety stock
--- ============================================================
+-- Demand forecasting and replenishment planning
+-- Supply Chain Analytics | Author: Manoj Kumar Kavuri | PostgreSQL
+-- Moving averages, seasonality index, reorder point / safety stock, EOQ
 
 -- 1. MOVING AVERAGE DEMAND FORECAST
 -- 4-week and 12-week moving averages to smooth demand signal
