@@ -25,7 +25,7 @@ Schema referenced by the queries in `sql/`. This project ships as query logic ag
 
 | Column | Type | Notes |
 |---|---|---|
-| po_id | INT, PK | Referenced as `order_id` in supplier_performance.sql |
+| po_id  INT, PK | |
 | supplier_id | INT, FK -> suppliers | |
 | product_id | INT, FK -> products | |
 | order_date | DATE | |
