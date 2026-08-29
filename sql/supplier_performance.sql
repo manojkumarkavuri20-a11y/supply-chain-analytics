@@ -9,13 +9,13 @@ SELECT
     s.supplier_name,
     s.country,
     s.category,
-    COUNT(po.order_id)                                        AS total_orders,
+    COUNT(po.po_id)                                        AS total_orders,
     ROUND(AVG(po.lead_time_days), 1)                          AS avg_lead_time_days,
     ROUND(STDDEV(po.lead_time_days), 1)                       AS lead_time_stddev,
     ROUND(
         COUNT(CASE WHEN po.delivered_date <= po.promised_date
               THEN 1 END)::DECIMAL
-        / NULLIF(COUNT(po.order_id), 0) * 100, 1
+        / NULLIF(COUNT(po.po_id), 0) * 100, 1
     )                                                         AS on_time_delivery_pct,
     ROUND(
         SUM(po.quantity_received)::DECIMAL
@@ -31,7 +31,7 @@ SELECT
         (
             COUNT(CASE WHEN po.delivered_date <= po.promised_date
                   THEN 1 END)::DECIMAL
-            / NULLIF(COUNT(po.order_id), 0) * 100 * 0.40
+            / NULLIF(COUNT(po.po_id), 0) * 100 * 0.40
         ) + (
             SUM(po.quantity_received)::DECIMAL
             / NULLIF(SUM(po.quantity_ordered), 0) * 100 * 0.30
@@ -57,7 +57,7 @@ WITH supplier_stats AS (
         ROUND(
             COUNT(CASE WHEN po.delivered_date <= po.promised_date
                   THEN 1 END)::DECIMAL
-            / NULLIF(COUNT(po.order_id), 0) * 100, 1
+            / NULLIF(COUNT(po.po_id), 0) * 100, 1
         )                                                     AS on_time_pct,
         ROUND(
             SUM(po.quantity_received)::DECIMAL
@@ -102,7 +102,7 @@ WITH monthly_perf AS (
         ROUND(
             COUNT(CASE WHEN po.delivered_date <= po.promised_date
                   THEN 1 END)::DECIMAL
-            / NULLIF(COUNT(po.order_id), 0) * 100, 1
+            / NULLIF(COUNT(po.po_id), 0) * 100, 1
         )                                                     AS on_time_pct
     FROM suppliers s
     JOIN purchase_orders po ON s.supplier_id = po.supplier_id
