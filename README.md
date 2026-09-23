@@ -2,7 +2,7 @@
 
 **Portfolio project built for learning purposes using a synthetic dataset. No employer, client or customer data is used.**
 
-**End-to-end SQL analytics system for supply chain operations** — tracking supplier performance, demand forecasting, stockout risk, and inventory health. Built with a synthetic dataset, modelled on supply chain concepts relevant to 27+ months of hands-on stock management experience at The Range.
+**SQL analytics system for supply chain operations** - supplier performance, demand forecasting, stockout risk, and inventory health. Built with a synthetic dataset, modelled on supply chain concepts relevant to 27+ months of hands-on stock management experience at The Range.
 
 [![SQL](https://img.shields.io/badge/SQL-PostgreSQL-blue)](https://www.postgresql.org/) [![Status](https://img.shields.io/badge/Status-Active-brightgreen)](https://github.com/manojkumarkavuri20-a11y/supply-chain-analytics) [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
@@ -27,7 +27,7 @@
 
 ## Business Problem
 
-Retail and operations teams face a recurring set of supply chain blind spots: late deliveries that disrupt shop-floor availability and customer satisfaction, long supplier lead times that increase working capital requirements, demand spikes that go undetected until stock actually runs out, no early-warning system for a stockout before it happens, and overstock that ties up capital in slow-moving SKUs. This project builds a structured SQL analytics layer to surface these issues proactively, enabling more data-driven procurement and replenishment decisions.
+Retail operations teams run into the same stock management problems: deliveries arrive late and disrupt shop-floor availability, lead times are long enough that demand spikes go undetected until stock actually runs out, and slow-moving SKUs tie up working capital. This project is a SQL analytics layer that flags those issues before they escalate, covering supplier performance, stockout risk, demand forecasting, and overstock.
 
 ## Repository Structure
 
@@ -45,21 +45,21 @@ supply-chain-analytics/
 
 ## SQL Modules Overview
 
-### 1. `lead_time_analysis.sql` — Supplier Lead Time Benchmarking
+### 1. `lead_time_analysis.sql`: Supplier Lead Time Benchmarking
 
 Analyses actual vs promised delivery windows across all suppliers: lead time distribution and percentile analysis (P50, P75, P95), supplier reliability ranking by on-time delivery rate, late delivery root cause breakdown by category and region, and a lead time trend over a rolling 6-month window.
 
-### 2. `supplier_performance.sql` — Supplier Scorecard & Risk
+### 2. `supplier_performance.sql`: Supplier Scorecard & Risk
 
-Comprehensive supplier evaluation using a weighted composite score: 40% on-time delivery, 30% fill rate, and 30% quality. Suppliers are classified into risk tiers (Preferred / Approved / Conditional / At Risk), tracked month over month to see whether performance is improving or declining, and checked against contract prices to flag anyone billing above the agreed rate.
+Supplier evaluation using a weighted composite score: 40% on-time delivery, 30% fill rate, and 30% quality. Suppliers are classified into risk tiers (Preferred / Approved / Conditional / At Risk), tracked month over month to see whether performance is improving or declining, and checked against contract prices to flag anyone billing above the agreed rate.
 
-### 3. `demand_forecasting.sql` — Demand Planning & Replenishment
+### 3. `demand_forecasting.sql`: Demand Planning & Replenishment
 
-Forecasting and inventory planning using statistical methods in plain SQL: 4-week and 12-week moving averages with rolling window functions, a seasonality index comparing monthly demand against the annual average (Peak / Low / Normal), a reorder point calculated as `(Avg Daily Demand × Lead Time) + Safety Stock`, safety stock via `Z(1.645) × StdDev(demand) × √Lead Time` at a 95% service level, an economic order quantity using the standard `√(2DS/H)` formula, and a demand variance alert that flags any product deviating more than 30% from its forecast.
+Forecasting and inventory planning in plain SQL: 4-week and 12-week moving averages with rolling window functions, a seasonality index comparing monthly demand against the annual average (Peak / Low / Normal), a reorder point calculated as `(Avg Daily Demand × Lead Time) + Safety Stock`, safety stock via `Z(1.645) × StdDev(demand) × √Lead Time` at a 95% service level, an economic order quantity using the standard `√(2DS/H)` formula, and a demand variance alert that flags any product deviating more than 30% from its forecast.
 
-### 4. `stockout_risk.sql` — Risk Assessment & Inventory Health
+### 4. `stockout_risk.sql`: Risk Assessment & Inventory Health
 
-Real-time stockout prevention and inventory optimisation: a stockout risk dashboard comparing days-of-stock against lead time with urgency flags (STOCKOUT NOW / CRITICAL / WARNING / WATCH / OK), a Pareto-based ABC classification of SKUs by revenue contribution, a stockout history view surfacing chronic offenders with estimated lost revenue in GBP, and an overstock identification query for excess units beyond a 90-day supply.
+Stockout prevention and inventory health tracking: a stockout risk dashboard comparing days-of-stock against lead time with urgency flags (STOCKOUT NOW / CRITICAL / WARNING / WATCH / OK), a Pareto-based ABC classification of SKUs by revenue contribution, a stockout history view surfacing chronic offenders with estimated lost revenue in GBP, and an overstock identification query for excess units beyond a 90-day supply.
 
 ## Key Metrics Tracked
 
@@ -76,11 +76,11 @@ Real-time stockout prevention and inventory optimisation: a stockout risk dashbo
 
 ## Illustrative Findings from Synthetic Data
 
-These are illustrative patterns the queries are designed to surface, generated from the synthetic dataset and informed by general retail supply chain concepts — not measured results from a real employer's data. The top 20% of suppliers can account for the large majority of late deliveries, so targeted escalation with just a handful of accounts can deliver outsized improvement. A December–January seasonality spike shows up clearly in key categories, which argues for building in an advance buffer rather than reacting after the fact. Safety stock calculated at a 95% service level typically comes out higher than a simple lead-time-only estimate would suggest. A-class SKUs, the top revenue share, tend to be a small minority of the unique product count, which is exactly why they need to be prioritised first for replenishment. And the overstock query usually turns up a meaningful share of SKUs sitting on excess cover, which is capital that could be freed up.
+These are patterns the queries are designed to surface, generated from the synthetic dataset - not measured results from a real employer's data. In the synthetic data, the top 20% of suppliers account for most of the late deliveries, which is a common real-world pattern. A December-January seasonality spike shows up clearly in key categories. Safety stock at a 95% service level comes out higher than a simple lead-time estimate. A-class SKUs are a small share of unique products but carry most of the revenue risk. The overstock query finds a meaningful share of SKUs on excess cover that could free up working capital.
 
 ## Illustrative Business Impact
 
-This table shows the kind of before/after comparison the queries are designed to support, based on the synthetic dataset — not real, measured results from an employer.
+This table shows the kind of before/after comparison the queries are designed to support, based on the synthetic dataset - not real, measured results from an employer.
 
 | Problem | SQL Solution | Illustrative Outcome |
 |---|---|---|
@@ -91,15 +91,18 @@ This table shows the kind of before/after comparison the queries are designed to
 
 ## Tools & Technologies
 
-All queries are written and tested against PostgreSQL (and are largely MySQL-compatible), leaning on window functions (`LAG`, `LEAD`, `ROWS BETWEEN`, `PARTITION BY`) and CTEs for the multi-step analytical logic, plus `STDDEV` and `SQRT` for the safety stock and EOQ formulas. Power BI is the intended layer for turning the query outputs into an actual dashboard.
+All queries are written and tested against PostgreSQL (and are largely MySQL-compatible), using window functions (`LAG`, `LEAD`, `ROWS BETWEEN`, `PARTITION BY`) and CTEs for the multi-step analytical logic, plus `STDDEV` and `SQRT` for the safety stock and EOQ formulas. Power BI is the intended layer for turning the query outputs into a dashboard.
 
 ## Related Projects
 
-[Retail Operations Intelligence](https://github.com/manojkumarkavuri20-a11y/retail-operations-intelligence) covers inventory accuracy and shrinkage detection, [UK Retail Sales & Category Performance Analysis](https://github.com/manojkumarkavuri20-a11y/uk-retail-footfall-analysis) works through 109 months of ONS retail data, [Power BI Marketing KPI Dashboard](https://github.com/manojkumarkavuri20-a11y/powerbi-marketing-kpi-dashboard) is a campaign analytics build, and [SQL Portfolio](https://github.com/manojkumarkavuri20-a11y/sql-portfolio) is the broader business analytics SQL collection this project sits alongside.
+- [Retail Operations Intelligence](https://github.com/manojkumarkavuri20-a11y/retail-operations-intelligence) - inventory accuracy and shrinkage detection
+- [UK Retail Sales & Category Performance Analysis](https://github.com/manojkumarkavuri20-a11y/uk-retail-footfall-analysis) - 109 months of ONS retail data
+- [Power BI Marketing KPI Dashboard](https://github.com/manojkumarkavuri20-a11y/powerbi-marketing-kpi-dashboard) - campaign analytics
+- [SQL Portfolio](https://github.com/manojkumarkavuri20-a11y/sql-portfolio) - broader business analytics SQL collection
 
 ## About
 
-Built by **Manoj Kumar Kavuri** — Graduate Market & Operations Analyst
+Built by **Manoj Kumar Kavuri** - Graduate Market & Operations Analyst
 
 Bracknell, UK | Background: 27+ months retail operations at The Range | MSc International Business (Distinction)
 
@@ -109,7 +112,7 @@ Bracknell, UK | Background: 27+ months retail operations at The Range | MSc Inte
 
 ## Getting Started
 
-This repo ships as query logic against a documented schema, not a bundled dataset — [`data/data_dictionary.md`](data/data_dictionary.md) lists every table and column the queries in `sql/` expect (`products`, `suppliers`, `purchase_orders`, `sales`, `inventory`, `stockout_events`, `supplier_contracts`).
+This repo ships as query logic against a documented schema, not a bundled dataset - [`data/data_dictionary.md`](data/data_dictionary.md) lists every table and column the queries in `sql/` expect (`products`, `suppliers`, `purchase_orders`, `sales`, `inventory`, `stockout_events`, `supplier_contracts`).
 
 To run these queries yourself, install PostgreSQL 13+, create the tables described in `data/data_dictionary.md`, load your own sample rows (or generate synthetic ones matching the schema), then run any query directly, for example:
 
